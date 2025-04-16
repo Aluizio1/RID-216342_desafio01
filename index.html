@@ -3,63 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://github.com/Aluizio1/-216342_desafio01.git">
+
+    <!-- Fontes Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
     <title>Landing page</title>
-    <script src="index.js"></script>
     <link rel="stylesheet" href="style.css">
+
+    <!-- Script de envio para Sheetmonkey -->
+    <script defer>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("formulario-contato");
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const formData = new FormData(form);
+                const jsonData = {};
+
+                formData.forEach((value, key) => {
+                    jsonData[key] = value;
+                });
+
+                fetch("https://api.sheetmonkey.io/form/2SRrXzhDNQhipWWpjCps5T", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(jsonData),
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            alert("Dados enviados com sucesso!");
+                            form.reset();
+                        } else {
+                            alert("Erro ao enviar os dados.");
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Erro:", error);
+                        alert("Erro ao enviar os dados.");
+                    });
+            });
+        });
+    </script>
 </head>
 <body>
-    <!--MENU SUPERIOR-->
+
+    <!-- MENU SUPERIOR -->
     <div id="menusuperior">
-        <h1 id="titulo-menu-superior" >Tradição em projetos de arquitetura</h1>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-        <p id="texto-menu-superior" >Arquitetura residencial e comercial.</p>
+        <h1 id="titulo-menu-superior">Tradição em projetos de arquitetura</h1>
+        <p id="texto-menu-superior">Arquitetura residencial e comercial.</p>
     </div>
-    <!-- TEXTO MENU INFORMACIONAL-->
+
+    <!-- TEXTO MENU INFORMACIONAL -->
     <div class="highlight">
         <div class="column">
-          <span class="number">850</span>
-          <p class="text" id="empreendimentos" >empreendimentos construídos</p>
+            <span class="number">850</span>
+            <p class="text" id="empreendimentos">empreendimentos construídos</p>
         </div>
         <div class="column">
-          <span class="number">40</span>
-          <p class="text" id="anos" >anos de mercado e experiência</p>
+            <span class="number">40</span>
+            <p class="text" id="anos">anos de mercado e experiência</p>
         </div>
         <div class="column">
-            <span class="number" >2,000,000</span>
-            <p class="text" id="projetos" >m² em projetos construídos</p>
-          </div>
-      </div>
-     
-    <!--MENU IMAGEM-->
+            <span class="number">2,000,000</span>
+            <p class="text" id="projetos">m² em projetos construídos</p>
+        </div>
+    </div>
+
+    <!-- MENU IMAGEM -->
     <div class="content">
         <div class="text">
-          <h1>Arquitetos com História e Experiência.</h1>
-          <p id="texto-desktop" >Nós realizamos desde 2002 projetos e gerenciamento de obras. <br>
-            Com mais de 800 projetos e 2.000.000 de m² construídos, tendo <br>
-            como principal proposta transformar em realidade os sonhos de <br>
-            seus clientes, criando projetos personalizados, unindo a tradição <br>
-            e a modernidade em nossos projetos.</p>
+            <h1>Arquitetos com História e Experiência.</h1>
+            <p id="texto-desktop">
+                Nós realizamos desde 2002 projetos e gerenciamento de obras. <br>
+                Com mais de 800 projetos e 2.000.000 de m² construídos, tendo <br>
+                como principal proposta transformar em realidade os sonhos de <br>
+                seus clientes, criando projetos personalizados, unindo a tradição <br>
+                e a modernidade em nossos projetos.
+            </p>
         </div>
-        <img src="imagem.svg" alt="">
+        <img src="imagem.svg" alt="Imagem de Arquitetura">
     </div>
-    <!--FORMULARIO-->
-    <div id="secao-formulario" >
-        <h1 id="titulo-formulario" >Conheça mais sobre nossos serviços:</h1>
-        <form action="https://api.sheetmonkey.io/form/7uZrBKagx62sn1ZWqL2qhy" method="post"></form>
-        <input type="text" placeholder="Nome" name="Name" required><br>
-        <input type="email" placeholder="Email" name="Email" required><br>
-        <input type="hidden" name="Created" value="x-sheetmonkey-current-date-time" />
-        <button type="submit">Fale Conosco</button>
 
+    <!-- FORMULÁRIO -->
+    <div id="secao-formulario">
+        <h1 id="titulo-formulario">Conheça mais sobre nossos serviços:</h1>
+        <form id="formulario-contato">
+            <input type="text" placeholder="Nome" name="Name" required><br>
+            <input type="email" placeholder="Email" name="Email" required><br>
+            <input type="hidden" name="Created" value="x-sheetmonkey-current-date-time" />
+            <button type="submit">Fale Conosco</button>
+        </form>
     </div>
-        
-    
-
 
 </body>
 </html>
